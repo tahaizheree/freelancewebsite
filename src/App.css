@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+body{
+  font-family: 'Lato';
+  font-size:17px;
+  margin:0px;
+  padding:0px;
+  scroll-behavior: smooth;
+}
