@@ -23,7 +23,7 @@ nav{
      top:90px;
      overflow: hidden;
      opacity:0%;
-     transition:0.5s ease all;
+     transition:0.3s ease all;
      display:flex;
      flex-direction:column;
 }
@@ -31,9 +31,11 @@ nav{
 .dropdownsection .title
 {
     display:flex;
-
     justify-content: space-between;
     gap:100px;
+}
+.dropdownsection .title:hover{
+    text-decoration: underline;
 }
 .dropdownsection ul{
     align-items:start;
@@ -54,6 +56,10 @@ nav{
 .dropdownsection ul li a{
     text-decoration: none;
     color:rgb(138, 137, 137);
+}
+.dropdownsection ul li a:hover{
+    text-decoration: underline;
+    color:rgb(114, 112, 112);
 }
 nav .left
 {
