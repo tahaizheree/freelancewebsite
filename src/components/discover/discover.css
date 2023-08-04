@@ -1,0 +1,14 @@
+.discovertitle
+{
+    margin-top:150px;
+    text-align: center;
+    font-size:25px;
+}
+
+.iconsunderdiscover
+{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding:0px 800px;
+}
