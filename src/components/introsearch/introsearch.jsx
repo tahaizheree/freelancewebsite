@@ -20,7 +20,7 @@ const IntroSearch = () => {
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <input type="text" className="Postcode" placeholder="Postcode" />
-          <button className="search">Search</button>
+          <button className="search" type="submit">Search</button>
         </div>
         <div className="downtext">
           <p>Popular: House Cleaning, Web Design, Personal Trainers</p>
