@@ -1,0 +1,118 @@
+
+.slider {
+    
+    height: 250px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+   margin-top:350px;
+}
+
+.slider::before, .slider::after {
+    background: linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100px;
+    z-index: 2;
+}
+
+.slider::after {
+    right: 0;
+    top: 0;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+.slider .slide-track {
+    animation: scroll 80s linear infinite;
+    display: flex;
+    width: calc(250px * 18);
+
+}
+
+
+.slider .slide-track:hover {
+    animation-play-state: paused;
+}
+
+.slider .slide img{
+    height: 250px;
+    width: 400px;
+    box-shadow: 1px 1px 16px 0px rgb(238, 235, 235);
+    box-shadow: -1px -1px 16px 0px rgb(238, 235, 235);
+    margin-left:30px;
+    object-fit:cover;
+    transition:transform 0.3s;
+}
+
+.slider .slide img:hover{
+   transform: scale(1.1);
+}
+
+.slide:nth-child(1), .slide:nth-child(10) {
+margin-top:-20px;
+}
+
+.slide:nth-child(2), .slide:nth-child(11) {
+    margin-top:20px;
+}
+
+.slide:nth-child(3), .slide:nth-child(12) {
+    margin-top:-20px;
+}
+
+.slide:nth-child(4), .slide:nth-child(13) {
+    margin-top:20px;
+}
+
+.slide:nth-child(5), .slide:nth-child(14) {
+    margin-top:-20px;
+}
+
+.slide:nth-child(6), .slide:nth-child(15) {
+    margin-top:20px;
+}
+
+.slide:nth-child(7), .slide:nth-child(16) {
+    margin-top:-20px;
+}
+
+.slide:nth-child(8), .slide:nth-child(17) {
+    margin-top:20px;
+}
+
+.slide:nth-child(9), .slide:nth-child(18) {
+    margin-top:20px;
+}
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-250px * 9));
+    }
+}
+
+
+.media-track
+{
+    display: flex;
+    margin-top:100px;
+    justify-content: space-evenly;
+    background-color:rgb(250, 250, 250);
+    align-items: center;
+    opacity: 100%;
+    padding:0px 400px;
+}
+
+.media-track .med{
+    padding:35px;
+   
+}
