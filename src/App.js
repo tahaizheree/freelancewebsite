@@ -10,6 +10,7 @@ function App() {
    <IntroSearch/>
    <InfiniteSlider/>
    <Discover/>
+
    </>
   );
 }
