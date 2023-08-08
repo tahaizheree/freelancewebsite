@@ -14,8 +14,14 @@
     top: 0; 
 
     z-index: 1000; 
-
-    transition:0.3s ease all;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition:0.6s ease all;
+  }
+  #navigation-bar.slide-in {
+    opacity: 1;
+    transform: translateY(0);
   }
   #navigation-bar.sticky {
     position: fixed;
@@ -23,10 +29,11 @@
     left: 0;
     right: 0;
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   
+    box-shadow: 0px 0px 5px 0px rgb(238, 235, 235);
     z-index: 1000;
 
-    transition:0.3s ease all;
+  
   }
   #navigation-bar.sticky .right{
     color:black;
@@ -125,6 +132,7 @@ nav .right p:hover{
 nav .right .loginasprofessional
 {
 all:unset;
+transition: 0.3s ease all;
 color:rgba(0,127,153,1);
 border: 1px solid rgba(0,127,153,1);
 background-color: white;
@@ -136,9 +144,7 @@ width:200px;
 text-align: center;
 }
 
-nav .right .loginasprofessional:hover{
-background-color: rgb(238, 238, 238);
-}
+
 nav .right .loginasprofessional i{
     padding-right:10px;
 }

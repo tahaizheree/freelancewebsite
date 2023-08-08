@@ -1,16 +1,17 @@
-
 .slider {
-    
-    height: 250px;
-    margin: auto;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-   margin-top:350px;
-}
+  height: 250px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin-top: 350px;
 
+}
+.slide p{
+    position:absolute;
+}
 .slider::before, .slider::after {
-    background: linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+  
     content: "";
     height: 100%;
     position: absolute;
@@ -45,8 +46,7 @@
 .slider .slide img{
     height: 250px;
     width: 366px;
-    box-shadow: 1px 1px 16px 0px rgb(238, 235, 235);
-    box-shadow: -1px -1px 16px 0px rgb(238, 235, 235);
+    
     margin-left:30px;
     object-fit:cover;
     transition:transform 0.3s;
@@ -101,18 +101,3 @@ margin-top:-20px;
 }
 
 
-.media-track
-{
-    display: flex;
-    margin-top:100px;
-    justify-content: space-evenly;
-    background-color:rgb(250, 250, 250);
-    align-items: center;
-    opacity: 100%;
-    padding:0px 400px;
-}
-
-.media-track .med{
-    padding:35px;
-   
-}

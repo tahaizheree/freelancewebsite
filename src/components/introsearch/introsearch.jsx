@@ -1,9 +1,21 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./introsearch.css";
+
 const IntroSearch = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsMounted(true);
+    }, 200);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <Fragment>
-      <div className="frontbody">
+      <div
+        className={`frontbody ${isMounted ? "slide-in" : ""}`}
+      >
         <div className="text">
           <h1>
             Find the perfect<br></br> professional for you
@@ -20,9 +32,10 @@ const IntroSearch = () => {
           <button className="search" type="submit">Search</button>
         </div>
         <div className="downtext">
-          <p>Popular: House Cleaning, Web Design, Personal Trainers</p>
+          <p>Popular: Web Development, App Development, Consultation</p>
         </div>
       </div>
+
     </Fragment>
   );
 };

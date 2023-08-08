@@ -4,6 +4,7 @@ import './navigation.css';
 const Navigation = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isSticky, setSticky] = useState(false);
+  const [isAnimated, setAnimated] = useState(false);
   const toggleDropdown = () => {
     setDropdownVisible((prevVisible) => !prevVisible);
   };
@@ -16,8 +17,15 @@ const Navigation = () => {
         setSticky(false);
       }
     };
+    const addSlideInAnimation = () => {
+      const animationDelay = 300;
+      setTimeout(() => {
+        setAnimated(true);
+      }, animationDelay);
+    };
 
     window.addEventListener('scroll', handleScroll);
+    addSlideInAnimation();
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -25,7 +33,10 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      <nav id="navigation-bar" className={isSticky ? 'sticky' : ''}>
+     <nav
+        id="navigation-bar"
+        className={`${isSticky ? 'sticky' : ''} ${isAnimated ? 'slide-in' : ''}`}
+      >
         <div className="left">
           <div className="logo">
             <img
