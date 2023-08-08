@@ -1,15 +1,15 @@
 .frontbody {
   padding-top: 80px;
-  align-items: center;
+  align-items: start;
   display: flex;
   flex-direction: column;
-  margin-right: 200px;
-  margin-top: 50px;
+  margin-top: 100px;
+  margin-left:300px;;
 }
 
 .text h1 {
   margin-bottom: 0px;
-  font-size: 50px;
+  font-size: 60px;
   
 }
 .text h3 {
@@ -20,8 +20,8 @@
 
 .boxes {
   display: flex;
-  align-items: center;
-  margin: auto;
+  align-items: start;
+
   
 }
 
@@ -29,8 +29,8 @@
   all: unset;
   padding: 10px;
   border: 1px solid rgb(238, 235, 235);
-  margin-left: 200px;
-  width: 300px;
+
+  width: 560px;
   
 }
 
@@ -39,13 +39,7 @@
   border-bottom: 1px solid rgb(238, 235, 235);
   padding: 10px;
 }
-.Postcode {
-  all: unset;
-  padding: 10px;
-  border-top: 1px solid rgb(238, 235, 235);
-  border-bottom: 1px solid rgb(238, 235, 235);
-  border-right: 1px solid rgb(238, 235, 235);
-}
+
 .search
 {
 

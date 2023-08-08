@@ -1,16 +1,31 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import './navigation.css';
 
 const Navigation = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
+  const [isSticky, setSticky] = useState(false);
   const toggleDropdown = () => {
     setDropdownVisible((prevVisible) => !prevVisible);
   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollThreshold = 100;
+      if (window.scrollY > scrollThreshold) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <Fragment>
-      <nav>
+      <nav id="navigation-bar" className={isSticky ? 'sticky' : ''}>
         <div className="left">
           <div className="logo">
             <img

@@ -16,10 +16,7 @@ const IntroSearch = () => {
             className="servicesinput"
             placeholder="What services are you looking for? "
           />
-          <div className="locationicon">
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
-          <input type="text" className="Postcode" placeholder="Postcode" />
+         
           <button className="search" type="submit">Search</button>
         </div>
         <div className="downtext">
