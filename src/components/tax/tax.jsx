@@ -319,8 +319,8 @@ const Tax = () => {
   });
 
 
-  const [taxName, setTaxName] = useState(''); // New state for tax name input
-  const [taxPercentage, setTaxPercentage] = useState(''); // New state for tax percentage input
+  const [taxName, setTaxName] = useState(''); 
+  const [taxPercentage, setTaxPercentage] = useState(''); 
   const [taxArray, setTaxArray] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [applyToAll, setApplyToAll] = useState(true);
@@ -337,11 +337,9 @@ const Tax = () => {
   const handleTaxApplication = (event) => {
     const value = event.target.value;
     if (value === "all") {
-      // Apply to all items
       setSelectedItems(data.map((item) => item.id));
       setApplyToAll(true);
     } else {
-      // Apply to specific items
       setSelectedItems([]);
       setApplyToAll(false);
     }
