@@ -45,6 +45,38 @@ const Tax = () => {
           images: [],
         },
         {
+          id: 14965,
+          tab_id: 3202,
+          name: "Necklace Ruby",
+          amount: 12.0,
+          amount_type: "fixed",
+          allow_quantity: null,
+          deleted_at: null,
+          required: false,
+          created_at: "2018-07-02T14:11:00.305Z",
+          updated_at: "2018-06-17T19:19:42.304Z",
+          type: "TabItem",
+          position: 1,
+          anchor: null,
+          parent_id: null,
+          catalog_object_id: null,
+          description: null,
+          available_quantity: null,
+          hidden: false,
+          category: { id: 14866, name: "Necklace", options: {} },
+          tsv: "'item':2 'recur':1",
+          quantity_sold: 2,
+          amount_sold: 24.0,
+          total_buyers: 1,
+          quantity_refunded: 0,
+          amount_discounted: 0.0,
+          amount_refunded: 0.0,
+          net_amount: 24.0,
+          net_quantity: 2,
+          subcategory: null,
+          images: [],
+        },
+        {
           id: 14865,
           tab_id: 3202,
           name: "Jasinthe Bracelet",
@@ -305,19 +337,27 @@ const Tax = () => {
       ];
 
 
-      const categories = {
-    bracelets: [],
-    others: [],
-  };
-
-  data.forEach(item => {
-    if (item.category && item.category.name === 'Bracelets') {
-      categories.bracelets.push(item);
-    } else {
-      categories.others.push(item);
-    }
-  });
-
+      const categorizeItems = (data) => {
+        const categories = {
+          other: [],
+        };
+      
+        data.forEach((item) => {
+          if (item.category && item.category.name) {
+            const categoryName = item.category.name.toLowerCase();
+            if (!categories[categoryName]) {
+              categories[categoryName] = [];
+            }
+            categories[categoryName].push(item);
+          } else {
+            categories.other.push(item);
+          }
+        });
+      
+        return categories;
+      };
+      
+      const categorizedData = categorizeItems(data);
 
   const [taxName, setTaxName] = useState(''); 
   const [taxPercentage, setTaxPercentage] = useState(''); 
@@ -400,23 +440,23 @@ const Tax = () => {
       <div className="bodysection">
           <input type="text" className="searchItem" placeholder="Search items" />
 
-          {Object.entries(categories).map(([categoryName, categoryItems]) => (
-            <div key={categoryName} className='itemCategory'>
-              <h2>{categoryName === 'bracelets' ? 'Bracelets' : 'Others'}</h2>
-              <div className="items">
-                {categoryItems.map((item) => (
-                  <div key={item.id} className="item">
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.id)}
-                      onChange={() => toggleItemSelection(item.id)}
-                    />
-                    <p>{item.name}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+          {Object.entries(categorizedData).map(([categoryName, categoryItems]) => (
+  <div key={categoryName} className='itemCategory'>
+    <h2>{categoryName === 'other' ? 'Other' : categoryName}</h2>
+    <div className="items">
+      {categoryItems.map((item) => (
+        <div key={item.id} className="item">
+          <input
+            type="checkbox"
+            checked={selectedItems.includes(item.id)}
+            onChange={() => toggleItemSelection(item.id)}
+          />
+          <p>{item.name}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+))}
           <button onClick={handleAddTax} className='submitbutton'>
             Add tax to {selectedItems.length} items
           </button>
