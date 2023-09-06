@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './tax.css'
 import {AiFillCloseCircle} from 'react-icons/ai';
 const Tax = () => {
-    const res = [
+    const data = [
         {
           id: 14864,
           tab_id: 3202,
@@ -305,6 +305,72 @@ const Tax = () => {
       ];
 
 
+      const categories = {
+    bracelets: [],
+    others: [],
+  };
+
+  data.forEach(item => {
+    if (item.category && item.category.name === 'Bracelets') {
+      categories.bracelets.push(item);
+    } else {
+      categories.others.push(item);
+    }
+  });
+
+
+  const [taxName, setTaxName] = useState(''); // New state for tax name input
+  const [taxPercentage, setTaxPercentage] = useState(''); // New state for tax percentage input
+  const [taxArray, setTaxArray] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [applyToAll, setApplyToAll] = useState(true);
+
+
+
+  const toggleItemSelection = (itemId) => {
+    const updatedSelection = selectedItems.includes(itemId)
+      ? selectedItems.filter((id) => id !== itemId)
+      : [...selectedItems, itemId];
+    setSelectedItems(updatedSelection);
+  }
+
+  const handleTaxApplication = (event) => {
+    const value = event.target.value;
+    if (value === "all") {
+      // Apply to all items
+      setSelectedItems(data.map((item) => item.id));
+      setApplyToAll(true);
+    } else {
+      // Apply to specific items
+      setSelectedItems([]);
+      setApplyToAll(false);
+    }
+  };
+
+  const handleAddTax = () => {
+    if (selectedItems.length > 0 && taxName && taxPercentage) {
+      const newTax = {
+        id: taxArray.length + 1,
+        name: taxName,
+        percentage: taxPercentage,
+        itemIds: selectedItems,
+      };
+
+      setTaxArray([...taxArray, newTax]);
+      setTaxName('');
+      setTaxPercentage('');
+      const alertMessage = {
+        name: newTax.name,
+        rate: newTax.percentage.toString(),
+        applied_to: 'Specify items',
+        applicable_items: newTax.itemIds.map(itemId => itemId.toString()),
+      };
+  
+      window.alert(JSON.stringify(alertMessage));
+    }
+    
+    
+  };
   return (
     <>
     <div className="formbody">
@@ -320,15 +386,40 @@ const Tax = () => {
       </div>
       <div className="allOrSpecify">
         <div style={{display:"flex",gap:"20px"}}>
-        <input type="radio"></input>
+        <input type="radio" name="taxType" value="all" checked={applyToAll} onChange={handleTaxApplication} ></input>
         <p>Apply to all items in collection</p>
         </div>
         <div style={{display:"flex",gap:"20px"}}>
-        <input type="radio"></input>
+        <input type="radio" name="taxType" value="specific" checked={!applyToAll} onChange={handleTaxApplication}></input>
         <p>Apply to specific items</p>
         </div>
       </div>
       </div>
+
+      <div className="bodysection">
+          <input type="text" className="searchItem" placeholder="Search items" />
+
+          {Object.entries(categories).map(([categoryName, categoryItems]) => (
+            <div key={categoryName} className='itemCategory'>
+              <h2>{categoryName === 'bracelets' ? 'Bracelets' : 'Others'}</h2>
+              <div className="items">
+                {categoryItems.map((item) => (
+                  <div key={item.id} className="item">
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(item.id)}
+                      onChange={() => toggleItemSelection(item.id)}
+                    />
+                    <p>{item.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          <button onClick={handleAddTax}>
+            Add tax to {selectedItems.length} items
+          </button>
+        </div>
     </div>
     </>
   )
