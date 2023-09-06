@@ -1,0 +1,40 @@
+.formbody{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.uppersection{
+    border-bottom:1px solid rgb(225, 223, 223);
+display:flex;
+flex-direction:column;
+}
+.titleandcross{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+svg{
+    font-size:30px;
+}
+.inputs{
+    display:flex;
+    gap:20px;
+}
+.nameInput{
+    all:unset;
+    padding:10px;
+    border:1px solid rgb(225, 223, 223);
+    min-width:300px;
+    border-radius:7px;
+}
+.percentageInput{
+    all:unset;
+    border-radius:7px;
+    max-width:130px;
+    border:1px solid rgb(225, 223, 223);
+    padding:10px;
+}
+
+.titlenandcross h1{
+    font-weight:bold;
+}
