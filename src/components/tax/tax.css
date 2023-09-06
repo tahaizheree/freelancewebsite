@@ -67,3 +67,14 @@ svg{
     margin-top:20px;
 }
 
+.submitbutton{
+    all:unset;
+    padding:10px;
+    background-color:rgb(95, 171, 201);
+    border-radius:7px;
+    border-color:rgb(54, 154, 194);
+    color:white;
+    margin-top:20px;
+    margin-bottom:100px;
+    margin-left:50px;
+}

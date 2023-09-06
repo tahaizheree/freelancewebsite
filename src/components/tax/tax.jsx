@@ -348,29 +348,32 @@ const Tax = () => {
   };
 
   const handleAddTax = () => {
-    if (selectedItems.length > 0 && taxName && taxPercentage) {
+    
+    if (selectedItems.length > 0 && taxName.trim() !== '' && parseFloat(taxPercentage) > 0) {
+      console.log("Reached");
       const newTax = {
         id: taxArray.length + 1,
         name: taxName,
-        percentage: taxPercentage,
+        percentage: parseFloat(taxPercentage),
         itemIds: selectedItems,
       };
 
       setTaxArray([...taxArray, newTax]);
-      setTaxName('');
-      setTaxPercentage('');
+
       const alertMessage = {
         name: newTax.name,
         rate: newTax.percentage.toString(),
         applied_to: 'Specify items',
-        applicable_items: newTax.itemIds.map(itemId => itemId.toString()),
+        applicable_items: newTax.itemIds.map((itemId) => itemId.toString()),
       };
   
       window.alert(JSON.stringify(alertMessage));
+    } else {
+      console.error('Invalid input data for adding tax.');
     }
+    };
     
     
-  };
   return (
     <>
     <div className="formbody">
@@ -381,8 +384,8 @@ const Tax = () => {
         </div>
       
       <div className="inputs">
-        <input type="text" className="nameInput" placeholder='Enter name' />
-        <input type="number" className="percentageInput" placeholder='Percentage'/>
+        <input type="text" className="nameInput" placeholder='Enter name' onChange={(e)=>setTaxName(e.target.value)} />
+        <input type="number" className="percentageInput" placeholder='Percentage' onChange={(e)=>setTaxPercentage(e.target.value)}/>
       </div>
       <div className="allOrSpecify">
         <div style={{display:"flex",gap:"20px"}}>
@@ -416,7 +419,7 @@ const Tax = () => {
               </div>
             </div>
           ))}
-          <button onClick={handleAddTax}>
+          <button onClick={handleAddTax} className='submitbutton'>
             Add tax to {selectedItems.length} items
           </button>
         </div>
