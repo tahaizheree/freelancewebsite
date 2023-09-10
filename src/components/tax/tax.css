@@ -53,18 +53,23 @@ svg{
     
   
 }
-.itemCategory h2{
+.itemCategory .categoryselect{
     background-color:rgb(224, 224, 224);
-    font-size:20px;
-    padding:10px;
-}
+  padding:10px 0px;
+    gap:20px;
 
+}
+.itemCategory h2{
+    
+    margin:0;
+}
 .item{
     display:flex;
     gap:20px;
 }
 .searchItem{
     margin-top:20px;
+    margin-bottom:20px;
 }
 
 .submitbutton{
@@ -77,4 +82,7 @@ svg{
     margin-top:20px;
     margin-bottom:100px;
     margin-left:50px;
+}
+.categoryselect{
+    display:flex;
 }

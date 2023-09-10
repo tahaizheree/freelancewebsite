@@ -364,15 +364,52 @@ const Tax = () => {
   const [taxArray, setTaxArray] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [applyToAll, setApplyToAll] = useState(true);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
+  const filteredItems = data.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+
+  const toggleCategorySelection = (categoryName) => {
+    if (categoryName === 'other') {
+      const otherCategoryItems = categorizedData.other.map((item) => item.id);
+      if (selectedCategories.includes(categoryName)) {
+        const updatedSelectedItems = selectedItems.filter((itemId) => !otherCategoryItems.includes(itemId));
+        setSelectedCategories(selectedCategories.filter((name) => name !== categoryName));
+        setSelectedItems(updatedSelectedItems);
+      } else {
+        setSelectedCategories([...selectedCategories, categoryName]);
+        setSelectedItems([...selectedItems, ...otherCategoryItems]);
+      }
+    } else {
+      if (selectedCategories.includes(categoryName)) {
+        const updatedSelectedItems = selectedItems.filter((itemId) => {
+          const item = data.find((item) => item.id === itemId);
+          return !item.category || item.category.name.toLowerCase() !== categoryName;
+        });
+        setSelectedCategories(selectedCategories.filter((name) => name !== categoryName));
+        setSelectedItems(updatedSelectedItems);
+      } else {
+        const categoryItems = data
+          .filter((item) => item.category && item.category.name.toLowerCase() === categoryName)
+          .map((item) => item.id);
+        setSelectedCategories([...selectedCategories, categoryName]);
+        setSelectedItems([...selectedItems, ...categoryItems]);
+      }
+    }
+  };
   const toggleItemSelection = (itemId) => {
     const updatedSelection = selectedItems.includes(itemId)
       ? selectedItems.filter((id) => id !== itemId)
       : [...selectedItems, itemId];
     setSelectedItems(updatedSelection);
-  }
+    console.log('Selected Items:', selectedItems);
+  };
 
   const handleTaxApplication = (event) => {
     const value = event.target.value;
@@ -414,54 +451,64 @@ const Tax = () => {
     
   return (
     <>
-    <div className="formbody">
-      <div className="uppersection">
-        <div className="titleandcross">
-        <h1>Add Tax</h1>
-        <AiFillCloseCircle></AiFillCloseCircle>
+<div className="formbody">
+        <div className="uppersection">
+          <div className="titleandcross">
+            <h1>Add Tax</h1>
+            <AiFillCloseCircle />
+          </div>
+          <div className="inputs">
+            <input type="text" className="nameInput" placeholder="Enter name" onChange={(e) => setTaxName(e.target.value)} />
+            <input type="number" className="percentageInput" placeholder="Percentage" onChange={(e) => setTaxPercentage(e.target.value)} />
+          </div>
+          <div className="allOrSpecify">
+            <div style={{ display: "flex", gap: "20px" }}>
+              <input type="radio" name="taxType" value="all" checked={applyToAll} onChange={handleTaxApplication}></input>
+              <p>Apply to all items in collection</p>
+            </div>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <input type="radio" name="taxType" value="specific" checked={!applyToAll} onChange={handleTaxApplication}></input>
+              <p>Apply to specific items</p>
+            </div>
+          </div>
         </div>
-      
-      <div className="inputs">
-        <input type="text" className="nameInput" placeholder='Enter name' onChange={(e)=>setTaxName(e.target.value)} />
-        <input type="number" className="percentageInput" placeholder='Percentage' onChange={(e)=>setTaxPercentage(e.target.value)}/>
-      </div>
-      <div className="allOrSpecify">
-        <div style={{display:"flex",gap:"20px"}}>
-        <input type="radio" name="taxType" value="all" checked={applyToAll} onChange={handleTaxApplication} ></input>
-        <p>Apply to all items in collection</p>
-        </div>
-        <div style={{display:"flex",gap:"20px"}}>
-        <input type="radio" name="taxType" value="specific" checked={!applyToAll} onChange={handleTaxApplication}></input>
-        <p>Apply to specific items</p>
-        </div>
-      </div>
-      </div>
 
-      <div className="bodysection">
-          <input type="text" className="searchItem" placeholder="Search items" />
+        <div className="bodysection">
+  <input type="text" className="searchItem" placeholder="Search items" onChange={handleSearch} />
 
-          {Object.entries(categorizedData).map(([categoryName, categoryItems]) => (
-  <div key={categoryName} className='itemCategory'>
-    <h2>{categoryName === 'other' ? 'Other' : categoryName}</h2>
-    <div className="items">
-      {categoryItems.map((item) => (
-        <div key={item.id} className="item">
-          <input
-            type="checkbox"
-            checked={selectedItems.includes(item.id)}
-            onChange={() => toggleItemSelection(item.id)}
-          />
-          <p>{item.name}</p>
+  {Object.entries(categorizedData).map(([categoryName, categoryItems]) => {
+    const filteredCategoryItems = categoryItems.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (filteredCategoryItems.length > 0) {
+      return (
+        <div key={categoryName} className="itemCategory">
+          <div className="categoryselect">
+            <input type="checkbox" checked={selectedCategories.includes(categoryName)} onChange={() => toggleCategorySelection(categoryName)}
+            />
+            <h2>{categoryName === 'other' ? 'Other' : categoryName}</h2>
+          </div>
+          <div className="items">
+            {filteredCategoryItems.map((item) => (
+              <div key={item.id} className="item">
+                <input type="checkbox" checked={selectedItems.includes(item.id)} onChange={() => toggleItemSelection(item.id)}  />
+                <p>{item.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-))}
+      );
+    }
+    return null;
+  })}
+
+
           <button onClick={handleAddTax} className='submitbutton'>
             Add tax to {selectedItems.length} items
           </button>
         </div>
-    </div>
+      </div>
     </>
   )
 }
